@@ -69,4 +69,4 @@ function OccurencesMot(phrase){
 
 }
 
-OccurencesMot("Hello hello hello no no yes yes yes nah");
+//OccurencesMot("Hello hello hello no no yes yes yes nah");
