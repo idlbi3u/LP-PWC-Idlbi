@@ -70,15 +70,11 @@ function EntrerNomPrenom(){
 
 function Encrypter(){
     let mot = prompt("Entrer la phrase à encrypter : ");
-    let tabEncrypter = {"A":4,"E":3,"G":6, "I":1, "O":0, "S":5, "Z":2
-    };
+    let tabEncrypter = {"A":4,"E":3,"G":6, "I":1, "O":0, "S":5, "Z":2};
     let Tabmot = mot.split("");
-    console.log(mot);
 
     for (let index = 1; index < Tabmot.length; index++) {
         if( tabEncrypter[Tabmot[index].toUpperCase()] != null){
-
-
             Tabmot[index] =tabEncrypter[Tabmot[index].toUpperCase()];
         }
         console.log(Tabmot);
@@ -88,7 +84,7 @@ function Encrypter(){
     return alert('Le mot de passe encrypté est '+mot);
 }
 
-//Encrypter();
+Encrypter();
 
 function JazzBundle(){
     var n = prompt("Entrer le nombre d'entiers : ");
