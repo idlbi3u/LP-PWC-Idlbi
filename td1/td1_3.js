@@ -84,7 +84,7 @@ function Encrypter(){
     return alert('Le mot de passe encrypté est '+mot);
 }
 
-Encrypter();
+//Encrypter();
 
 function JazzBundle(){
     var n = prompt("Entrer le nombre d'entiers : ");
