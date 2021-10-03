@@ -59,7 +59,6 @@ let AllBodyElements = document.getElementsByTagName('body');
     for (let i=0; i<elements.length; i++) {
 
         
-
         if (elements[i] === 'H2') {
             compteur++;
         }

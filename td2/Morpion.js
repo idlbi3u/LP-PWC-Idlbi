@@ -1,3 +1,5 @@
+//Initialisation de la page!!!
+
 let NomDesJoueurs = '<div class="form-group"><label for="joueur1" class="label">Nom du joueur 1 </label>'+
                     '<input type="text" id="joueur1" name="joueur1" class="form-control"></div>'+
                     '<div class="form-group"><label for="joueur2" class="label">Nom du joueur 2 </label>'+
@@ -8,7 +10,10 @@ var DivPres = document.getElementById("ZonePres");
 var TourJoueur = 'joueur1';
 var GameTable = [];
 DivPres.innerHTML = NomDesJoueurs;
-console.log(DivPres);
+console.log(DivPres);   
+
+
+//FONCTIONS
 
 function ValiderNoms(){
 
@@ -25,12 +30,10 @@ function ValiderNoms(){
         let PresChoixJeu = '<div id="choix" class="form-group"><h2>Choisissez le type de jeu</h2><input type="number" id="taille" class="form-control"><button onclick="Taille()" class="btn btn-success">Valider</button></div>';
 
          DivPres.innerHTML += PresChoixJeu;
+         let Taille = document.getElementById("taille").value;
+         console.log(Taille);
     }
 
-    let Taille = document.getElementById("taille").value;
-    console.log(Taille);
-
-    return joueur1, joueur2;
 }
 
 
@@ -42,11 +45,13 @@ function Taille(){
         let Delete = document.getElementById('choix');
         DivPres.removeChild(Delete);
         CreateTable(Taille);
+        CollecteValeur(Taille);
+
     }else{
         alert("Il faut entrer une valeur entre 3 et 8");
     }
-    localStorage.setItem('Taille', Taille);
 }
+
 
 
 function CreateTable(n){
@@ -57,7 +62,7 @@ function CreateTable(n){
         DivJeu.innerHTML += ligne;
         for (let j = 1; j <= n; j++) {
             let line = document.getElementById('ligne'+i);
-            let cellule = '<td id="ligne'+i+'cellule'+j+'" onclick=Coordonnee(['+i+','+ j+']) style="width: 100px; height: 100px;"></td>';
+            let cellule = '<td id="ligne'+i+'cellule'+j+'" onclick=Coordonnee(['+i+','+ j+']) style="width: 50px; height: 50px;"></td>';
             line.innerHTML += cellule;
             
         }
@@ -66,33 +71,57 @@ function CreateTable(n){
     console.log(DivJeu);
 }
 
-function VerifierDiagonale(){
 
-}
-
-function CollecteValeur(){
-    let n = localStorage.getItem('Taille');
+function CollecteValeur(n){
     for (let i = 1; i <= n; i++) {
        for (let j = 1; j <= n; j++) {
            GameTable['['+i+','+j+']'] = '';
        }
-        
     }
     console.log(GameTable);
 }
 
-function Coordonnee(TabCoor){
-    let cellule = document.getElementById('ligne'+TabCoor[0]+'cellule'+TabCoor[1]);
-    CollecteValeur();
-    if(TourJoueur === 'joueur2'){
-        TourJoueur = 'joueur1';
-        cellule.innerText = 'O';
-    }else{
-        TourJoueur = 'joueur2';
-        cellule.innerText = 'X';
-    }
+function VerifierDiagonale(){
+    let j = 0;
 
-    console.log(TabCoor);
+    for (let i = 0; i < GameTable.length; i++) {
+        j = j+i;
+        let etat = true;
+        Coor = '['+i+','+j+']';
+
+        if(GameTable[Coor] != "O"){
+            
+        }else{
+            
+        }
+    }
+    
+
 }
 
+
+function Coordonnee(TabCoor){
+
+    let cellule = document.getElementById('ligne'+TabCoor[0]+'cellule'+TabCoor[1]);
+    if(TourJoueur === 'joueur2' && cellule.innerText ==''){
+        TourJoueur = 'joueur1';
+        cellule.innerText = 'X';
+        
+
+    }
+    
+    if(TourJoueur === 'joueur1' && cellule.innerText ==''){
+        TourJoueur = 'joueur2';
+        cellule.innerText = 'O';
+        
+    }
+    
+    console.log('Coordonnées Cellule cliquée : ',TabCoor);
+    
+    GameTable['['+TabCoor[0]+','+TabCoor[1]+']'] = cellule.innerText;
+    console.log(VerifierDiagonale());
+
+    console.log(GameTable);
+    
+}
 
