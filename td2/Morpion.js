@@ -5,6 +5,8 @@ let NomDesJoueurs = '<div class="form-group"><label for="joueur1" class="label">
                     '<div class="form-group"><button onclick="ValiderNoms()" class="btn btn-success">Valider</button></div>';
 
 var DivPres = document.getElementById("ZonePres");
+var TourJoueur = 'joueur1';
+var GameTable = [];
 DivPres.innerHTML = NomDesJoueurs;
 console.log(DivPres);
 
@@ -17,7 +19,7 @@ function ValiderNoms(){
     if(joueur1 === "" || joueur2 === "" && joueur1.match(/^ *$/) !== null || joueur2.match(/^ *$/) !== null){
         alert('Veuillez entrez les noms des joueurs et valider !');
     }else{
-        var PresNom = '<p> Joueur 1 X: '+joueur1+'</p>'+'<p> Joueur 2 O: '+joueur2+'</p>';
+        var PresNom = '<p> Joueur 1 O : '+joueur1+'</p>'+'<p> Joueur 2 X : '+joueur2+'</p>';
 
         DivPres.innerHTML= PresNom;
         let PresChoixJeu = '<div id="choix" class="form-group"><h2>Choisissez le type de jeu</h2><input type="number" id="taille" class="form-control"><button onclick="Taille()" class="btn btn-success">Valider</button></div>';
@@ -31,12 +33,6 @@ function ValiderNoms(){
     return joueur1, joueur2;
 }
 
-function CreateTable(n){
-    for(let i = 1; i <= n; i++){
-        let colone = '<'
-
-    }
-}
 
 function Taille(){
     let Taille = document.getElementById("taille").value;
@@ -45,15 +41,58 @@ function Taille(){
     if(3 <= Taille && Taille <= 8){
         let Delete = document.getElementById('choix');
         DivPres.removeChild(Delete);
+        CreateTable(Taille);
     }else{
         alert("Il faut entrer une valeur entre 3 et 8");
     }
-    
-    
+    localStorage.setItem('Taille', Taille);
 }
 
-function jouer(){
 
+function CreateTable(n){
+    DivJeu = document.getElementById('TableJeu');
+    
+    for(let i = 1; i <= n; i++){
+        let ligne = '<tr id="ligne'+i+'"></tr>'
+        DivJeu.innerHTML += ligne;
+        for (let j = 1; j <= n; j++) {
+            let line = document.getElementById('ligne'+i);
+            let cellule = '<td id="ligne'+i+'cellule'+j+'" onclick=Coordonnee(['+i+','+ j+']) style="width: 100px; height: 100px;"></td>';
+            line.innerHTML += cellule;
+            
+        }
+
+    }
+    console.log(DivJeu);
+}
+
+function VerifierDiagonale(){
+
+}
+
+function CollecteValeur(){
+    let n = localStorage.getItem('Taille');
+    for (let i = 1; i <= n; i++) {
+       for (let j = 1; j <= n; j++) {
+           GameTable['['+i+','+j+']'] = '';
+       }
+        
+    }
+    console.log(GameTable);
+}
+
+function Coordonnee(TabCoor){
+    let cellule = document.getElementById('ligne'+TabCoor[0]+'cellule'+TabCoor[1]);
+    CollecteValeur();
+    if(TourJoueur === 'joueur2'){
+        TourJoueur = 'joueur1';
+        cellule.innerText = 'O';
+    }else{
+        TourJoueur = 'joueur2';
+        cellule.innerText = 'X';
+    }
+
+    console.log(TabCoor);
 }
 
 
