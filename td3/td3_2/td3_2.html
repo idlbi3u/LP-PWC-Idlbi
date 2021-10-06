@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TD1 - Exercices</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;">
+    <div id="saisie" style="width: 500px; height: auto; background-color: lightblue; padding: 10px;">
+        <h2>Saisie des elements</h2>
+        <ul style="width: auto;" id="listeElements">
+
+            <li><label>Element 1 </label><input type="number" name="inputs"></li>
+
+            
+        </ul> 
+        <button id="AjoutElement" style="margin-left: 90%;" name="ajout">+</button>
+        
+        <div>
+            <label for="recherche">Element a rechercher </label>
+            <input id="recherche" type="number" name="recherche">
+        </div>
+
+        <button id="ProduireRes" style="margin-top: 20px;">Produire les resultat</button>
+        
+    </div>
+
+
+    <div id="resultat" style="width: 500px; height: auto; background-color: rgb(77, 77, 224); padding: 10px; margin-top: 50px; color: white;">
+        
+        <p id="somme">Somme des elements : </p>
+        <p id="nbrPair">Nombre de pair : </p>
+        <p id="PlusGrand">Plus grand element pair : </p>
+        <p id="pos">Position de l'element dans la table : </p>
+        
+    </div>
+  
+  <script src="./td3_2.js" type="module"></script>
+  
+</body>
+</html>

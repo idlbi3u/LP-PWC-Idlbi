@@ -62,7 +62,7 @@ function CreateTable(n){
         DivJeu.innerHTML += ligne;
         for (let j = 1; j <= n; j++) {
             let line = document.getElementById('ligne'+i);
-            let cellule = '<td id="ligne'+i+'cellule'+j+'" onclick=Coordonnee(['+i+','+ j+']) style="width: 50px; height: 50px;"></td>';
+            let cellule = '<td id="ligne'+i+'cellule'+j+'" onclick="Coordonnee(['+i+','+ j+'])" style="width: 50px; height: 50px;"></td>';
             line.innerHTML += cellule;
             
         }
@@ -75,34 +75,25 @@ function CreateTable(n){
 function CollecteValeur(n){
     for (let i = 1; i <= n; i++) {
        for (let j = 1; j <= n; j++) {
-           GameTable['['+i+','+j+']'] = '';
+           GameTable[''+i+','+j+''] = '';
        }
     }
-    console.log(GameTable);
 }
 
 function VerifierDiagonale(){
-    let j = 0;
-
-    for (let i = 0; i < GameTable.length; i++) {
+    let j=0;
+    for (let i = 0; i < 9; i++) {
         j = j+i;
-        let etat = true;
-        Coor = '['+i+','+j+']';
-
-        if(GameTable[Coor] != "O"){
-            
-        }else{
-            
-        }
+        console.log(GameTable['['+i+','+j+']']);
+        
     }
-    
-
 }
 
 
 function Coordonnee(TabCoor){
 
     let cellule = document.getElementById('ligne'+TabCoor[0]+'cellule'+TabCoor[1]);
+
     if(TourJoueur === 'joueur2' && cellule.innerText ==''){
         TourJoueur = 'joueur1';
         cellule.innerText = 'X';
@@ -118,10 +109,10 @@ function Coordonnee(TabCoor){
     
     console.log('Coordonnées Cellule cliquée : ',TabCoor);
     
-    GameTable['['+TabCoor[0]+','+TabCoor[1]+']'] = cellule.innerText;
-    console.log(VerifierDiagonale());
-
+    GameTable[''+TabCoor[0]+','+TabCoor[1]+''] = cellule.innerText;
     console.log(GameTable);
-    
+
+
+    VerifierDiagonale();
 }
 
