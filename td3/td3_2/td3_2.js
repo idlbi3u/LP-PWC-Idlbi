@@ -4,7 +4,7 @@ function AjouterElement() {
     let ListElements = document.getElementById('listeElements');
     let NextElementNumber = ListElements.childElementCount +1;
 
-    let NewInput = '<li style="margin-top: 20px;"><label for="element'+NextElementNumber+'" id="label'+NextElementNumber+'">Element '+NextElementNumber+' </label><input type="number" name="inputs"></li>'
+    let NewInput = '<li style="margin-top: 20px;"><label for="element'+NextElementNumber+'" id="label'+NextElementNumber+'">Element '+NextElementNumber+' </label><input style="border-radius:25px; border:none; max-width:40px;"type="number" name="inputs"></li>'
     
     ListElements.innerHTML += NewInput;
 }
