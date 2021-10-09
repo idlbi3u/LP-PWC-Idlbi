@@ -16,43 +16,73 @@ function getValeurRecherche() {
     return ValeurRecherchee;
 }
 
-function getPosition(array, Element) {
-    for (let i = 0; i < array.length; i++) {
-        if(Element == array[i]){
-            return i;
-        }
-    }
-}
+
 
 function ProduireResultat() {
-    let ListeInputs = document.getElementsByName('inputs')
-    console.log(ListeInputs);
-
-    let TableValeur = [];
-
-    for (let index = 0; index < ListeInputs.length; index++) {
-        console.log(ListeInputs[index].value);
-        TableValeur.push(parseInt(ListeInputs[index].value));
+    /*------------------------------------------------------- */
+    //initialisation des resultats
+    let ListeResultat = document.getElementsByName('resultat');
+    console.log('Liste resultat',ListeResultat);
+    for (let i = 0; i < ListeResultat.length; i++) {
+        ListeResultat[i].innerText =null;
     }
 
+
+    //Recupère les valeurs rentrées 
+    let ListeInputs = document.getElementsByName('inputs')
+    console.log(ListeInputs);
+    let TableValeur = [];
+    for (let index = 0; index < ListeInputs.length; index++) {
+        if(ListeInputs[index].value != ""){
+            console.log('rentre dans le test');
+            TableValeur.push(parseInt(ListeInputs[index].value));
+        }
+    }
     console.log('Table de valeur ',TableValeur);
-    let ValeurRecherche = getValeurRecherche();
 
-    let SommeTable = Outil.getSum41(TableValeur);
-    console.log('La somme : ',SommeTable);
-    document.getElementById('somme').innerText += SommeTable;
 
-    let NombreDePair = Outil.getNumberOfEven42(TableValeur);
-    console.log('Le nombre de pair :', NombreDePair);
-    document.getElementById('nbrPair').innerText += NombreDePair;
+    if(TableValeur.length != 0){
 
-    let PlusGrandElementPair = Outil.getMaxEven45(...TableValeur);
-    console.log('Le plus grand nombre pair : ', PlusGrandElementPair);
-    document.getElementById('PlusGrand').innerText += PlusGrandElementPair;
+        /*------------------------------------------------------- */
+        //La somme
+        let SommeTable = Outil.getSum41(TableValeur);
+        console.log('La somme : ',SommeTable);
+        console.log('first child :',document.getElementById('somme').children);
+        document.getElementById('somme').innerText += SommeTable;
 
-    let Position = getPosition(TableValeur, ValeurRecherche);
-    console.log('Position de la valeur recherchee : ', Position,'La valeur recherchee : ',ValeurRecherche);
-    document.getElementById('pos').innerText += Position;
+        /*------------------------------------------------------- */
+        //Combien de nombre pair dans la table
+        let NombreDePair = Outil.getNumberOfEven42(TableValeur);
+        console.log('Le nombre de pair :', NombreDePair);
+            document.getElementById('nbrPair').innerText += NombreDePair;
+        
+        /*------------------------------------------------------- */
+        //Le plus grand nombre pair 
+
+        if(Outil.getNumberOfEven42(TableValeur) != 0){
+            let PlusGrandElementPair = Outil.getMaxEven45(...TableValeur);
+            console.log('Le plus grand nombre pair : ', PlusGrandElementPair);
+            document.getElementById('PlusGrand').innerText += PlusGrandElementPair;
+
+        }else{
+            let PlusGrandElementPair ='Pas de nombre pair';
+            document.getElementById('PlusGrand').innerText += PlusGrandElementPair;
+        }
+       
+        
+
+        /*------------------------------------------------------- */
+        //Position de la valeur cherché
+
+        let ValeurRecherche = getValeurRecherche();
+        let Position = Outil.getPosition(TableValeur, ValeurRecherche);
+        console.log('Position de la valeur recherchee : ', Position,'La valeur recherchee : ',ValeurRecherche);
+        document.getElementById('pos').innerText += Position;
+
+    }else{
+        alert('Veuillez entrer au moins une valeur !');
+    }
+    
 }
 
 
@@ -64,5 +94,7 @@ function init() {
 
 
 init();
+
+
 
 

@@ -25,3 +25,12 @@ export function getSum41 (arr) {
     }
     return maxEven;
   }
+
+  export function getPosition(array, Element) {
+    for (let i = 0; i < array.length; i++) {
+        if(Element == array[i]){
+            return i+1;
+        }
+    }
+    return ' L\'element recherché n\'est pas parmi les valeurs rentrées';
+}
