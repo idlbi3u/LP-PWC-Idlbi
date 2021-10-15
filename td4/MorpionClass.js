@@ -5,7 +5,8 @@ export class Morpion{
     grille = new Array(this.taille);
     symbole ='x';
     joueur = 1;
-    jouerGagnant ='';
+    class;
+    gagnant;
     nbCoups = 0;
     score = [0,0];
 
@@ -17,8 +18,8 @@ export class Morpion{
     getMinGrille(){
       return this.MIN_GRILLE;
     }
-    getSymbole(){
-      return this.symbole;
+    getSymbole(x, y){
+      return this.grille[x][y];
     }
     getJoueur(){
       return this.joueur;
@@ -26,29 +27,32 @@ export class Morpion{
     getScore(){
       return this.score;
     }
-    getJoueurGagnant(){
-      return this.jouerGagnant;
-    }
     getGrille(){
       return this.grille;
     }
-
-
-    setJoueurGagnant(gagnant){
-      this.jouerGagnant = gagnant;
+    getGagnant(){
+      return this.gagnant;
     }
+    getClass(){
+      return this.class;
+    }
+
+
+    
     setSymbole(NewSymbole){
       this.symbole = NewSymbole;
     }
     setJoueur(NewJoueur){
       this.joueur = NewJoueur;
     }
-    setScore(NewScore){
-      this.score[0] = NewScore[0];
-      this.score[1] = NewScore[1];
-    }
     setGrille(NewGrille){
       this.grille = NewGrille;
+    }
+    setGagnant(ga){
+      this.gagnant = ga;
+    }
+    setClass(c){
+      this.class = c;
     }
 
 
@@ -96,7 +100,6 @@ export class Morpion{
       this.setGrille(this.grille);
       return this.grille;
     }
-
 
     aGagne (y, x) {
         let nbSymboles;
@@ -153,16 +156,24 @@ export class Morpion{
         
     }
 
-    clicBouton (uneCase, y, x) {
+    clicBouton ( y, x) {
       if (this.grille[y][x] === ' '){
 
         this.grille[y][x] = this.symbole;
-        console.log(this.grille);
+        console.log('Grille : ',this.grille);
         this.nbCoups++;
 
+        this.setClass('joueur'+ this.getJoueur());
+
         const victoire = this.aGagne(y, x);
-        console.log(victoire);
         if (victoire) {
+          this.setGagnant(this.joueur);
+
+          if(this.gagnant === 1){
+            this.score[0] +=1;
+          }else{
+            this.score[1] +=1;
+          }
 
           return true;
 
@@ -176,7 +187,7 @@ export class Morpion{
             this.setSymbole('o');
             this.setJoueur(2);
 
-          } else {
+          } else{
 
             this.setSymbole('x');
             this.setJoueur(1);
@@ -186,7 +197,7 @@ export class Morpion{
       } else {
 
         throw new Error ('Case déjà occupée !');
-        
+
       }
     }
 }
