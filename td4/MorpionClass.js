@@ -94,7 +94,7 @@ export class Morpion{
           this.grille[i][j] = ' ';
         }
       }
-      if(this.grille.length == 0){
+      if(this.grille.length === 0){
           throw new Error ('Erreur lors de la création de la grille!');
       }
       this.setGrille(this.grille);
@@ -156,14 +156,14 @@ export class Morpion{
         
     }
 
-    clicBouton ( y, x) {
+    clicBouton(y, x) {
       if (this.grille[y][x] === ' '){
 
         this.grille[y][x] = this.symbole;
         console.log('Grille : ',this.grille);
         this.nbCoups++;
 
-        this.setClass('joueur'+this.getJoueur())
+        this.setClass('joueur'+this.joueur);
 
         const victoire = this.aGagne(y, x);
         if (victoire) {

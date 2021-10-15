@@ -12,10 +12,8 @@ const btnReset = document.getElementById('btn_reset');
 btnReset.addEventListener('click', rejouer);
 
 
-
 function rejouer(){
   //recupération des balises
-  
   zoneMessage = document.getElementById('messages');
   taille = Number.parseInt(document.getElementById('taille').value);
   modeJeu = document.getElementById('simple').checked ? 'simple' : 'complet';
