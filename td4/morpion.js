@@ -1,9 +1,9 @@
 import { Morpion } from "./MorpionClass.js";
 
 let morpion;
-let nbCoups;
-let joueur;
-let symbole;
+//let nbCoups;
+//let joueur;
+//let symbole;
 let scores = [0, 0];
 let table;
 let taille;
@@ -30,6 +30,7 @@ function rejouer(){
     NewMorpion = new Morpion(taille, modeJeu);
     morpion = NewMorpion.CreerGrille();
     zoneMessage.innerHTML = "Joueur "+ NewMorpion.getJoueur()+', à toi !';
+
     console.log(morpion);
   }catch(e){
     zoneMessage.innerText = e.message;
@@ -40,7 +41,8 @@ function rejouer(){
     for (let j = 0; j < morpion.length; j++) {
       const id = '' + ((i + 1) * 10 + (j + 1));
       const cell = ligne.insertCell(j);
-      cell.innerHTML = "<input type='button' class='case' id='" + id + "' onclick='clicBouton(this, " + i + ',' + j + ")'/>";
+      cell.innerHTML = "<input type='button' class='case' id='" + id + "'/>";
+      cell.firstChild.addEventListener("click", () => clicBouton(cell.firstChild, i, j));
       document.getElementById(id).value = '';
     }
   }
@@ -86,7 +88,23 @@ function rejouer(){
 }
 
 function clicBouton (uneCase, y, x) {
-  if (morpion[y][x] === ' ') {
+    
+
+  try{
+    console.log(NewMorpion.clicBouton(uneCase, y, x));
+    zoneMessage.innerHTML = 'Joueur ' + NewMorpion.getJoueur() + ', à toi de jouer !';
+    uneCase.value = NewMorpion.getSymbole();
+    uneCase.classList.add('joueur' + NewMorpion.getJoueur());
+
+    console.log(NewMorpion.getJoueur());
+
+  }catch(e){
+    console.log(e);
+    zoneMessage.innerHTML = e.message;
+  }
+
+
+  /*if (morpion[y][x] === ' ') {
     morpion[y][x] = symbole;
     uneCase.value = symbole;
     uneCase.classList.add('joueur' + joueur);
@@ -113,7 +131,7 @@ function clicBouton (uneCase, y, x) {
     }
   } else {
     zoneMessage.innerHTML = 'Case déjà occupée !!! ';
-  }
+  }*/
 }
 
 function desactiveEcouteurs () {

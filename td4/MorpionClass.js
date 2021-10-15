@@ -3,8 +3,10 @@ export class Morpion{
     MAX_GRILLE = 8;
     MIN_GRILLE = 3;
     grille = new Array(this.taille);
-    symbole ='';
+    symbole ='x';
     joueur = 1;
+    nbCoups = 0;
+    score = [0,0];
 
 
     getMaxGrille(){
@@ -20,12 +22,21 @@ export class Morpion{
     getJoueur(){
       return this.joueur;
     }
+    getScore(){
+      return this.score;
+    }
     setSymbole(NewSymbole){
       this.symbole = NewSymbole;
     }
     setJoueur(NewJoueur){
       this.joueur = NewJoueur;
     }
+    setScore(NewScore){
+      this.score[0] = NewScore[0];
+      this.score[1] = NewScore[1];
+    }
+
+
     
 
     constructor(taille, modeJeu){
@@ -66,9 +77,8 @@ export class Morpion{
           this.grille[i][j] = ' ';
         }
       }
-
       if(this.grille.length == 0){
-          throw new Error ('Erreur leur de la création de la grille!');
+          throw new Error ('Erreur lors de la création de la grille!');
       }
       return this.grille;
     }
@@ -76,12 +86,13 @@ export class Morpion{
 
     aGagne (y, x) {
         let nbSymboles;
+        let etat = false;
       
         // gagné en ligne ?
         const ligne = y;
         nbSymboles = 0;
         for (let col = 0; col < this.taille; col++) {
-          if (this.morpion[ligne][col] === this.symbole) {
+          if (this.grille[ligne][col] === this.symbole) {
             nbSymboles++;
           }
         }
@@ -93,7 +104,7 @@ export class Morpion{
         const col = x;
         nbSymboles = 0;
         for (let ligne = 0; ligne < this.taille; ligne++) {
-          if (this.morpion[ligne][col] === this.symbole) {
+          if (this.grille[ligne][col] === this.symbole) {
             nbSymboles++;
           }
         }
@@ -105,7 +116,7 @@ export class Morpion{
         if (x === y) {
           nbSymboles = 0;
           for (let lc = 0; lc < this.taille; lc++) {
-            if (this.morpion[lc][lc] === this.symbole) {
+            if (this.grille[lc][lc] === this.symbole) {
               nbSymboles++;
             }
           }
@@ -118,7 +129,7 @@ export class Morpion{
         if (x === this.taille - (y + 1)) {
             nbSymboles = 0;
             for (let ligne = 0; ligne < this.taille; ligne++) {
-            if (this.morpion[ligne][this.taille - (ligne + 1)] === this.symbole) {
+            if (this.grille[ligne][this.taille - (ligne + 1)] === this.symbole) {
                 nbSymboles++;
             }
             }
@@ -126,38 +137,46 @@ export class Morpion{
             return true;
             }
         }  
-        throw new Error ('Vérification échouée!');
     }
 
     clicBouton (uneCase, y, x) {
       if (this.grille[y][x] === ' '){
 
         this.grille[y][x] = this.symbole;
+        console.log(this.grille);
         //uneCase.value = symbole;
         //uneCase.classList.add('joueur' + joueur);
-        nbCoups++;
+        this.nbCoups++;
+
+        try{
+          this.aGagne(y, x);
+        }catch(e){
+          throw new Error (e.message);
+        }
     
-        const victoire = this.aGagne(this.symbole, y, x);
+        const victoire = this.aGagne(y, x);
         if (victoire) {
           //zoneMessage.innerHTML = 'Le joueur ' + this.joueur + ' a gagné !';
           //desactiveEcouteurs();
-          this.symbole === 'x' ? scores[0]++ : scores[1]++;
+          this.symbole === 'x' ? this.setScore++ : this.scores[1]++;
+          
          // document.getElementById('score').innerHTML = 'X : ' + scores[0] + ' - O  : ' + scores[1];
-        } else if (nbCoups === this.taille * this.taille) {
+        } else if (this.nbCoups === this.taille * this.taille) {
+          
           //zoneMessage.innerHTML = 'Match nul !';
           //desactiveEcouteurs();
-        } else {
+        }else {
           if (this.symbole === 'x') {
-            this.symbole = 'o';
-            this.joueur = 2;
+            this.setSymbole('o');
+            this.setJoueur(2);
           } else {
-            this.symbole = 'x';
-            this.joueur = 1;
+            this.setSymbole('x');
+            this.setJoueur(1);
           }
           //zoneMessage.innerHTML = 'Joueur ' + joueur + ', à toi de jouer !';
         }
       } else {
-        //zoneMessage.innerHTML = 'Case déjà occupée !!! ';
+        throw new Error ('Case déjà occupée !');
       }
     }
 }
