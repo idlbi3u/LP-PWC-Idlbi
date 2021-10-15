@@ -163,7 +163,7 @@ export class Morpion{
         console.log('Grille : ',this.grille);
         this.nbCoups++;
 
-        this.setClass('joueur'+ this.getJoueur());
+        this.setClass('joueur'+this.getJoueur())
 
         const victoire = this.aGagne(y, x);
         if (victoire) {
