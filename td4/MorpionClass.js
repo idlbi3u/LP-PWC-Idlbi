@@ -5,6 +5,7 @@ export class Morpion{
     grille = new Array(this.taille);
     symbole ='x';
     joueur = 1;
+    jouerGagnant ='';
     nbCoups = 0;
     score = [0,0];
 
@@ -25,6 +26,17 @@ export class Morpion{
     getScore(){
       return this.score;
     }
+    getJoueurGagnant(){
+      return this.jouerGagnant;
+    }
+    getGrille(){
+      return this.grille;
+    }
+
+
+    setJoueurGagnant(gagnant){
+      this.jouerGagnant = gagnant;
+    }
     setSymbole(NewSymbole){
       this.symbole = NewSymbole;
     }
@@ -35,9 +47,10 @@ export class Morpion{
       this.score[0] = NewScore[0];
       this.score[1] = NewScore[1];
     }
+    setGrille(NewGrille){
+      this.grille = NewGrille;
+    }
 
-
-    
 
     constructor(taille, modeJeu){
         if (Number.isNaN(taille) || taille < this.MIN_GRILLE || taille > this.MAX_GRILLE){
@@ -80,13 +93,13 @@ export class Morpion{
       if(this.grille.length == 0){
           throw new Error ('Erreur lors de la création de la grille!');
       }
+      this.setGrille(this.grille);
       return this.grille;
     }
 
 
     aGagne (y, x) {
         let nbSymboles;
-        let etat = false;
       
         // gagné en ligne ?
         const ligne = y;
@@ -136,7 +149,8 @@ export class Morpion{
             if (nbSymboles === this.taille) {
             return true;
             }
-        }  
+        }
+        
     }
 
     clicBouton (uneCase, y, x) {
@@ -144,39 +158,35 @@ export class Morpion{
 
         this.grille[y][x] = this.symbole;
         console.log(this.grille);
-        //uneCase.value = symbole;
-        //uneCase.classList.add('joueur' + joueur);
         this.nbCoups++;
 
-        try{
-          this.aGagne(y, x);
-        }catch(e){
-          throw new Error (e.message);
-        }
-    
         const victoire = this.aGagne(y, x);
+        console.log(victoire);
         if (victoire) {
-          //zoneMessage.innerHTML = 'Le joueur ' + this.joueur + ' a gagné !';
-          //desactiveEcouteurs();
-          this.symbole === 'x' ? this.setScore++ : this.scores[1]++;
-          
-         // document.getElementById('score').innerHTML = 'X : ' + scores[0] + ' - O  : ' + scores[1];
+
+          return true;
+
         } else if (this.nbCoups === this.taille * this.taille) {
+
+          return false;
           
-          //zoneMessage.innerHTML = 'Match nul !';
-          //desactiveEcouteurs();
         }else {
           if (this.symbole === 'x') {
+
             this.setSymbole('o');
             this.setJoueur(2);
+
           } else {
+
             this.setSymbole('x');
             this.setJoueur(1);
+
           }
-          //zoneMessage.innerHTML = 'Joueur ' + joueur + ', à toi de jouer !';
         }
       } else {
+
         throw new Error ('Case déjà occupée !');
+        
       }
     }
 }
