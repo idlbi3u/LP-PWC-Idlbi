@@ -14,7 +14,6 @@ export class Morpion{
     getMaxGrille(){
       return this.MAX_GRILLE;
     }
-
     getMinGrille(){
       return this.MIN_GRILLE;
     }
@@ -36,8 +35,6 @@ export class Morpion{
     getClass(){
       return this.class;
     }
-
-
     
     setSymbole(NewSymbole){
       this.symbole = NewSymbole;
@@ -54,7 +51,6 @@ export class Morpion{
     setClass(c){
       this.class = c;
     }
-
 
     constructor(taille, modeJeu){
         if (Number.isNaN(taille) || taille < this.MIN_GRILLE || taille > this.MAX_GRILLE){
