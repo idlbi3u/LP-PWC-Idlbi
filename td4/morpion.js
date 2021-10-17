@@ -17,7 +17,19 @@ function setMessage(zone, message){
   zone.innerHTML = message;
 }
 
-
+function setScore(etat){
+  if(etat === true){
+    desactiveEcouteurs();
+    zoneMessage.innerHTML = 'Le joueur ' + NewMorpion.getGagnant() + ' a gagné !';
+    scores[0] += NewMorpion.getScore()[0];
+    scores[1] += NewMorpion.getScore()[1];
+    document.getElementById('score').innerHTML = 'X : ' + scores[0] + ' - O  : ' + scores[1];
+  }
+  if(etat === false){
+    desactiveEcouteurs();
+    setMessage(zoneMessage, 'Match Nul !');
+  }
+}
 
 function CreateGrid(Grid){
   for (let i = 0; i < Grid.length; i++) {
@@ -34,7 +46,7 @@ function CreateGrid(Grid){
 
 
 function rejouer(){
-  //recupération des balises
+  
   zoneMessage = document.getElementById('messages');
   taille = Number.parseInt(document.getElementById('taille').value);
   modeJeu = document.getElementById('simple').checked ? 'simple' : 'complet';
@@ -64,54 +76,25 @@ function rejouer(){
 }
 
 function clicBouton(mode, uneCase, y, x) {
-  // Clique button 
-  if(mode === 'complet'){
-    try{
+
+  try {
+    if(mode === 'complet'){
       let etat = NewMorpion.clicBouton(y, x);
       uneCase.classList.add(NewMorpion.getClass());
       uneCase.value = NewMorpion.getSymbole(y, x);
       let message = 'Joueur ' + NewMorpion.getJoueur() + ', à toi de jouer !';
       setMessage(zoneMessage, message);
-      
-      // tests si le match est fini
-      if(etat === true){
-        desactiveEcouteurs();
-        zoneMessage.innerHTML = 'Le joueur ' + NewMorpion.getGagnant() + ' a gagné !';
-        scores[0] += NewMorpion.getScore()[0];
-        scores[1] += NewMorpion.getScore()[1];
-        document.getElementById('score').innerHTML = 'X : ' + scores[0] + ' - O  : ' + scores[1];
-      }
-      if(etat === false){
-        desactiveEcouteurs();
-        setMessage(zoneMessage, 'Match Nul !');
-      }
-    }catch(e){
-      setMessage(zoneMessage, e.message);
-    }
-
-  }else{
-    try{
+      setScore(etat);
+    }else{
       let etat = NewMorpion.clicBoutonSimple(y, x);
       uneCase.classList.add(NewMorpion.getClass());
       uneCase.value = NewMorpion.getSymbole(y, x);
       let message = 'Joueur ' + NewMorpion.getJoueur() + ', à toi de jouer !';
       setMessage(zoneMessage, message);
-      // tests si le match est fini
-      if(etat === true){
-        desactiveEcouteurs();
-        let message = 'Le joueur ' + NewMorpion.getGagnant() + ' a gagné !';
-        setMessage(zoneMessage, message);
-        scores[0] += NewMorpion.getScore()[0];
-        scores[1] += NewMorpion.getScore()[1];
-        document.getElementById('score').innerHTML = 'X : ' + scores[0] + ' - O  : ' + scores[1];
-      }
-      if(etat === false){
-        desactiveEcouteurs();
-        setMessage(zoneMessage, 'Match Nul !');
-      }
-    }catch(e){
-      setMessage(zoneMessage, e.message);
+      setScore(etat);
     }
+  } catch (e) {
+    setMessage(zoneMessage, e.message);
   }
 }
 
