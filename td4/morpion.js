@@ -13,9 +13,9 @@ const btnReset = document.getElementById('btn_reset');
 btnReset.addEventListener('click', rejouer);
 
 
-
-
-
+function setMessage(zone, message){
+  zone.innerHTML = message;
+}
 
 
 
@@ -47,35 +47,32 @@ function rejouer(){
     try{
       NewMorpion = new Morpion(taille, modeJeu);
       morpion = NewMorpion.CreerGrille();
-      zoneMessage.innerHTML = "Joueur "+ NewMorpion.getJoueur()+', à toi !';
-  
+      let message = "Joueur "+ NewMorpion.getJoueur()+', à toi !';
+      setMessage(zoneMessage, message);
+
       //Affichage Grille
       CreateGrid(morpion);
       console.log(morpion);
   
     }catch(e){
-      zoneMessage.innerText = e.message;
+      setMessage(zoneMessage, e.message);
     }
 
   }else{
     try{
       NewMorpion = new MorpionSimple(taille, modeJeu);
-      console.log(NewMorpion);
-      console.log(NewMorpion.CreerGrille())
       morpion = NewMorpion.CreerGrille();
-      zoneMessage.innerHTML = "Joueur "+ NewMorpion.getJoueur()+', à toi !';
-  
+      let message = "Joueur "+ NewMorpion.getJoueur()+', à toi !';
+      setMessage(zoneMessage, message);
+
       //Affichage Grille
       CreateGrid(morpion);
       console.log(morpion);
   
     }catch(e){
-      zoneMessage.innerText = e.message;
+      setMessage(zoneMessage, e.message);
     }
-    
   }
-  // Creation Grille
-  
 }
 
 function clicBouton(mode, uneCase, y, x) {
@@ -85,7 +82,8 @@ function clicBouton(mode, uneCase, y, x) {
       let etat = NewMorpion.clicBouton(y, x);
       uneCase.classList.add(NewMorpion.getClass());
       uneCase.value = NewMorpion.getSymbole(y, x);
-      zoneMessage.innerHTML = 'Joueur ' + NewMorpion.getJoueur() + ', à toi de jouer !';
+      let message = 'Joueur ' + NewMorpion.getJoueur() + ', à toi de jouer !';
+      setMessage(zoneMessage, message);
       
       // tests si le match est fini
       if(etat === true){
@@ -97,10 +95,10 @@ function clicBouton(mode, uneCase, y, x) {
       }
       if(etat === false){
         desactiveEcouteurs();
-        zoneMessage.innerHTML = 'Match Nul !';
+        setMessage(zoneMessage, 'Match Nul !');
       }
     }catch(e){
-      zoneMessage.innerHTML = e.message;
+      setMessage(zoneMessage, e.message);
     }
 
   }else{
@@ -108,22 +106,23 @@ function clicBouton(mode, uneCase, y, x) {
       let etat = NewMorpion.clicBoutonSimple(y, x);
       uneCase.classList.add(NewMorpion.getClass());
       uneCase.value = NewMorpion.getSymbole(y, x);
-      zoneMessage.innerHTML = 'Joueur ' + NewMorpion.getJoueur() + ', à toi de jouer !';
-      
+      let message = 'Joueur ' + NewMorpion.getJoueur() + ', à toi de jouer !';
+      setMessage(zoneMessage, message);
       // tests si le match est fini
       if(etat === true){
         desactiveEcouteurs();
-        zoneMessage.innerHTML = 'Le joueur ' + NewMorpion.getGagnant() + ' a gagné !';
+        let message = 'Le joueur ' + NewMorpion.getGagnant() + ' a gagné !';
+        setMessage(zoneMessage, message);
         scores[0] += NewMorpion.getScore()[0];
         scores[1] += NewMorpion.getScore()[1];
         document.getElementById('score').innerHTML = 'X : ' + scores[0] + ' - O  : ' + scores[1];
       }
       if(etat === false){
         desactiveEcouteurs();
-        zoneMessage.innerHTML = 'Match Nul !';
+        setMessage(zoneMessage, 'Match Nul !');
       }
     }catch(e){
-      zoneMessage.innerHTML = e.message;
+      setMessage(zoneMessage, e.message);
     }
   }
 }
@@ -137,7 +136,6 @@ function desactiveEcouteurs () {
   }
   document.getElementById('btn_reset').disabled = false;
 }
-
 
 
 rejouer();
