@@ -42,24 +42,15 @@ function rejouer(){
   document.getElementById('score').innerHTML = 'X : ' + scores[0] + ' - O  : ' + scores[1];
   table.innerHTML = '';
 
-  
-  if(modeJeu === 'complet'){
-    try{
+  try{
+    if(modeJeu === 'complet'){
       NewMorpion = new Morpion(taille, modeJeu);
       morpion = NewMorpion.CreerGrille();
       let message = "Joueur "+ NewMorpion.getJoueur()+', à toi !';
       setMessage(zoneMessage, message);
-
-      //Affichage Grille
       CreateGrid(morpion);
       console.log(morpion);
-  
-    }catch(e){
-      setMessage(zoneMessage, e.message);
-    }
-
-  }else{
-    try{
+    }else{
       NewMorpion = new MorpionSimple(taille, modeJeu);
       morpion = NewMorpion.CreerGrille();
       let message = "Joueur "+ NewMorpion.getJoueur()+', à toi !';
@@ -68,10 +59,9 @@ function rejouer(){
       //Affichage Grille
       CreateGrid(morpion);
       console.log(morpion);
-  
-    }catch(e){
-      setMessage(zoneMessage, e.message);
     }
+  }catch(e){
+    setMessage(zoneMessage, e.message);
   }
 }
 
