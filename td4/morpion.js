@@ -55,8 +55,6 @@ function rejouer(){
       morpion = NewMorpion.CreerGrille();
       let message = "Joueur "+ NewMorpion.getJoueur()+', à toi !';
       setMessage(zoneMessage, message);
-
-      //Affichage Grille
       CreateGrid(morpion);
       console.log(morpion);
     }
