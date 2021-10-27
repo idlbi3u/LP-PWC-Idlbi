@@ -1,0 +1,56 @@
+body{
+    background-color: rgb(241, 251, 255);
+    width: 1000px;
+    margin: 0 auto;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+div{
+    margin: 20px;
+}
+
+table{
+    overflow: scroll;
+    max-width: 1000px;
+    height: 200px;
+}
+
+tr{
+    cursor: pointer;
+}
+tr:hover{
+    background-color: lightgray;
+}
+h1{
+    background-color: rgb(48, 165, 165);
+}
+ul li{
+    margin: 25px;
+    
+}
+
+ul li#temperature{
+    list-style: url('../assets/temperature.png');
+}
+
+ul li#humidite{
+    list-style: url('../assets/humidity.png');
+}
+
+ul li#temps{
+    list-style: url('../assets/weather.png');
+}
+
+ul li#maxi{
+    list-style: url('../assets/temperature.png');
+}
+
+ul li#mini{
+    list-style: url('../assets/temperature.png');
+}
+
+ul li#ressenti{
+    list-style: url('../assets/feelslike.png');
+}
+
+
+
